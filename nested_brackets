@@ -1,0 +1,26 @@
+def is_nested(expression):
+    """
+    Finds out how balanced an expression is.
+    With a string containing only brackets.
+
+    >>> is_matched('[]()()(((([])))')
+    False
+    >>> is_matched('[](){{{[]}}}')
+    True
+    """
+    opening = tuple('({[')
+    closing = tuple(')}]')
+    mapping = dict(zip(opening, closing))
+    queue = []
+    if not expression:
+        return False
+    else:
+        for letter in expression:
+            if letter in opening:
+                queue.append(mapping[letter])
+            elif letter in closing:
+                if letter != queue.pop():
+                    return False
+            else:
+                return False
+    return not queue
